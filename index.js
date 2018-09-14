@@ -6,10 +6,11 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const UsersService = require('./UsersService');
-const userService = new UsersService(); 
 
-//serwowanie plikow statycznych (katalog wyjsciowy webpacka-wygenerowane pliki index.html i bundle.js)
+const UsersService = require('./UsersService');
+const usersService = new UsersService();
+
+
 app.use(express.static(`${__dirname}/public`));
 
 app.get('/', (req, res) => {
@@ -21,22 +22,21 @@ io.on('connection', (socket) => {
 		userService.addUser({
 		    id: socket.id, 
 		    name
-		})
-	});
-	io.emit('update', {
-		users: userService.getAllUsers()
+		});
+		io.emit('update', {
+			users: userService.getAllUsers()
+		}); 
 	});
 });
 
-
-io.on('connection', (socket) => {   
-	socket.on('disconnect', () => { 
-		userService.removeUser(socket.id);    
-		socket.broadcast.emit('update', {      
-			users: userService.getAllUsers()    
-		});  
-	});
-}); 
+io.on('connection', (socket) => {
+  socket.on('disconnect', () => {
+    usersService.removeUser(socket.id);
+    socket.broadcast.emit('update', {
+      users: usersService.getAllUsers()
+    });
+  });
+});
 
 //wysylanie wiadomosci do uzytkownikow chatu
 io.on('connection', (socket) => {  
