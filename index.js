@@ -19,12 +19,12 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
 	socket.on('join', (name) => {
-		userService.addUser({
+		usersService.addUser({
 		    id: socket.id, 
 		    name
 		});
 		io.emit('update', {
-			users: userService.getAllUsers()
+			users: usersService.getAllUsers()
 		}); 
 	});
 });
@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
 //wysylanie wiadomosci do uzytkownikow chatu
 io.on('connection', (socket) => {  
 	socket.on('message', (message) => {
-		const {name} = userService.getUserById(socket.id);
+		const {name} = usersService.getUserById(socket.id);
 	    socket.broadcast.emit('message', {
 	        text: message.text,
 	        from: name    
