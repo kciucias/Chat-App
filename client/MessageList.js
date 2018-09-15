@@ -24,4 +24,4 @@ const MessageList = props => (
     </div>
 );
 
-export default UsersList;
+export default MessageList;

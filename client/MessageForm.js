@@ -34,7 +34,7 @@ class MessageForm extends Component {
             >
                 <input 
                     className = {styles.MessageInput}
-                    onChange = { e => this.handleChange(e)}
+                    onChange = { e => this.changeHandler(e)}
                     value = { this.state.text}
                     placeholder = 'Message'
                 />

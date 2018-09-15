@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/kciucias/Chat-App#readme",
   "dependencies": {
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.1",
     "babel-preset-env": "^1.7.0",
